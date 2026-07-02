@@ -248,11 +248,11 @@
 
   <header class="top">
     <div class="eyebrow"><span class="dot"></span> Meta Ads · WhatsApp Business · Junio 2026</div>
-    <h1>Del clic al <em>WhatsApp</em>,<br>en un solo panel.</h1>
+    <h1>DASHBOARD <em>CAMPAÑAS</em><br>JUNIO</h1>
     <p class="sub">Consolidado de campañas para Baby Century y El mundo de los Juguetes. Toda la conversión ocurrió por botón nativo directo a WhatsApp — este panel sigue el dinero desde la inversión hasta el lead.</p>
     <div class="badges">
       <div class="badge">Canal <b>Meta Ads → WhatsApp</b></div>
-      <div class="badge">Periodo <b>1–30 Junio</b></div>
+      <div class="badge">Periodo <b>13–30 Junio</b></div>
       <div class="badge">Marcas <b>2 unidades de negocio</b></div>
     </div>
   </header>
@@ -344,16 +344,16 @@
 
   <section class="creatives">
     <div class="section-head">
-      <h2>Ranking de creatividades</h2>
-      <div class="desc">Los 4 anuncios de la campaña de Juguetes, ordenados de menor a mayor CPL.</div>
+      <h2 id="creativesTitle">Ranking de creativos</h2>
+      <div class="desc" id="creativesDesc">Los 4 anuncios de la campaña de Juguetes, ordenados de menor a mayor CPL.</div>
     </div>
 
-    <div class="lb-note" id="lbNote">Baby Century no reporta desglose de creatividades individuales en el informe de origen — el ranking corresponde a la campaña de Juguetes.</div>
+    <div class="lb-note" id="lbNote"></div>
 
     <div class="lb-list" id="lbList"></div>
 
-    <div class="insight-banner">
-      El formato <b>Video Real</b> fue el más rentable, con costos por lead de S/ 0.09 y S/ 0.11 — ver el producto en uso genera confianza inmediata. Las piezas con <b>Inteligencia Artificial</b> cumplieron otro rol: la "Bañera Jade" fue la que más exposición absorbió (casi 12,000 impresiones), útil para escalar alcance aunque su CPL sea más alto.
+    <div class="insight-banner" id="creativesInsight">
+      El formato <b>Video Real</b> fue el más rentable, con costos por lead de S/ 0.09 y S/ 0.11 — ver el producto en uso genera confianza inmediata. Los creativos con <b>Inteligencia Artificial</b> cumplieron otro rol: la "Bañera Jade" fue la que más exposición absorbió (casi 12,000 impresiones), útil para escalar alcance aunque su CPL sea más alto.
     </div>
   </section>
 
@@ -447,8 +447,20 @@
 
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.brand === key));
 
-    // Creative leaderboard note only relevant for baby
-    document.getElementById('lbNote').classList.toggle('show', key === 'baby');
+    // Bloque de creativos: Baby Century no tiene ranking individual
+    const isBaby = key === 'baby';
+    document.getElementById('lbList').style.display = isBaby ? 'none' : 'flex';
+    document.getElementById('creativesInsight').style.display = isBaby ? 'none' : 'block';
+    document.getElementById('lbNote').classList.toggle('show', isBaby);
+
+    if (isBaby){
+      document.getElementById('creativesTitle').textContent = 'Creativos de la campaña';
+      document.getElementById('creativesDesc').textContent = 'Baby Century no reporta un ranking individual por CPL.';
+      document.getElementById('lbNote').innerHTML = 'En conjunto se pagaron <b>5 creativos</b>. Los que tuvieron más impacto fueron <b>Moto Harley</b>, <b>Buggys</b> y los videos de importación de <b>Buggys</b> y <b>Bicicletas</b>.';
+    } else {
+      document.getElementById('creativesTitle').textContent = 'Ranking de creativos';
+      document.getElementById('creativesDesc').textContent = 'Los 4 anuncios de la campaña de Juguetes, ordenados de menor a mayor CPL.';
+    }
   }
 
   document.querySelectorAll('.tab').forEach(tab => {
